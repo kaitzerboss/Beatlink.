@@ -46,3 +46,66 @@ body {
 }
 
 .float { animation: float 3s ease-in-out infinite; }
+
+/* ── RESPONSIVE MOBILE ── */
+@media (max-width: 768px) {
+  /* Hero */
+  .hero-section {
+    padding: 48px 20px 40px !important;
+  }
+  .hero-title {
+    font-size: 28px !important;
+    line-height: 1.25 !important;
+  }
+  .hero-btns {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+  }
+  .hero-btns a, .hero-btns button {
+    text-align: center !important;
+    width: 100% !important;
+  }
+
+  /* Stats */
+  .stats-grid {
+    gap: 24px 32px !important;
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* Steps */
+  .steps-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Feed filters */
+  .feed-filters {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+  .feed-filters select, .feed-filters input {
+    width: 100% !important;
+  }
+
+  /* Cards grid */
+  .cards-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Charts grid */
+  .charts-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+
+  /* Upload wizard */
+  .upload-container {
+    padding: 24px 16px !important;
+  }
+
+  /* General padding */
+  .page-container {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+}

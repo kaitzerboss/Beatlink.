@@ -10,7 +10,7 @@ export default function Home() {
       <Navbar />
 
       {/* HERO */}
-      <section style={{ padding: "80px 24px 72px", textAlign: "center", maxWidth: 820, margin: "0 auto" }}>
+      <section className="hero-section" style={{ padding: "80px 24px 72px", textAlign: "center", maxWidth: 820, margin: "0 auto" }}>
         <div style={{
           display: "inline-block",
           background: "rgba(29,185,84,0.08)", border: "1px solid rgba(29,185,84,0.25)",
@@ -38,7 +38,7 @@ export default function Home() {
           beatlink. génère le contrat, distribue le morceau et partage les revenus — automatiquement.
         </p>
 
-        <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
+        <div className="hero-btns" style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
           <button style={{
             background: "#1DB954", color: "#000", border: "none",
             borderRadius: 28, padding: "14px 34px",
@@ -96,7 +96,7 @@ export default function Home() {
           <p style={{ color: "#444", textAlign: "center", marginBottom: 48, fontSize: 14 }}>
             Du contrat au streaming en 4 étapes.
           </p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 16 }}>
+          <div className="steps-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 16 }}>
             {[
               { n: "01", icon: "🎤", title: "Upload de l'acapella", desc: "Le rappeur pose sa voix brute et définit ses conditions. Le contrat est généré automatiquement." },
               { n: "02", icon: "📄", title: "Signature du contrat", desc: "Le beatmaker télécharge l'acapella et signe le contrat en un clic. Tout est cadré avant la création." },
