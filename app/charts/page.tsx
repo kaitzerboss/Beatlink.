@@ -30,7 +30,7 @@ function RankBadge({ rank }: { rank: number }) {
     2: { bg: "#C0C0C0", color: "#000" },
     3: { bg: "#CD7F32", color: "#fff" },
   };
-  const style = colors[rank] ?? { bg: "#1a1a1a", color: "#555" };
+  const style = colors[rank] ?? { bg: "var(--border)", color: "var(--text-3)" };
   return (
     <div style={{
       width: 32, height: 32, borderRadius: "50%", flexShrink: 0,
@@ -48,7 +48,7 @@ function Evolution({ val }: { val: number }) {
   return (
     <span style={{
       fontSize: 11, fontWeight: 700,
-      color: up ? "#1DB954" : "#cc4444",
+      color: up ? "var(--accent)" : "#cc4444",
     }}>
       {up ? "▲" : "▼"} {Math.abs(val).toLocaleString("fr-FR")}
     </span>
@@ -57,7 +57,7 @@ function Evolution({ val }: { val: number }) {
 
 export default function ChartsPage() {
   return (
-    <div style={{ minHeight: "100vh", background: "#0a0a0a" }}>
+    <div style={{ minHeight: "100vh", background: "var(--bg)" }}>
       <Navbar />
 
       <div style={{ maxWidth: 1100, margin: "0 auto", padding: "48px 24px 80px" }}>
@@ -66,16 +66,16 @@ export default function ChartsPage() {
         <div style={{ marginBottom: 40 }}>
           <span style={{
             fontSize: 11, fontWeight: 700, letterSpacing: "0.12em",
-            color: "#1DB954", background: "rgba(29,185,84,0.1)",
-            border: "1px solid rgba(29,185,84,0.2)", borderRadius: 20,
+            color: "var(--accent)", background: "var(--accent-bg)",
+            border: "1px solid var(--accent-border)", borderRadius: 20,
             padding: "4px 12px", display: "inline-block", marginBottom: 14,
           }}>
             CLASSEMENTS
           </span>
-          <h1 style={{ fontSize: 28, fontWeight: 900, color: "#fff", margin: "0 0 8px" }}>
+          <h1 style={{ fontSize: 28, fontWeight: 900, color: "var(--text)", margin: "0 0 8px" }}>
             Top beatlink. — {MOIS}
           </h1>
-          <p style={{ fontSize: 14, color: "#555", margin: 0 }}>
+          <p style={{ fontSize: 14, color: "var(--text-3)", margin: 0 }}>
             Les morceaux et artistes les plus streamés sur la plateforme ce mois-ci.
           </p>
         </div>
@@ -84,24 +84,24 @@ export default function ChartsPage() {
 
           {/* TOP SONS */}
           <div>
-            <h2 style={{ fontSize: 16, fontWeight: 800, color: "#fff", margin: "0 0 16px", display: "flex", alignItems: "center", gap: 8 }}>
+            <h2 style={{ fontSize: 16, fontWeight: 800, color: "var(--text)", margin: "0 0 16px", display: "flex", alignItems: "center", gap: 8 }}>
               🎵 Top sons du mois
             </h2>
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
               {TOP_SONS.map(s => (
                 <div key={s.rank} style={{
-                  background: "#111", border: `1px solid ${s.rank <= 3 ? "rgba(29,185,84,0.2)" : "#1e1e1e"}`,
+                  background: "var(--bg-card)", border: `1px solid ${s.rank <= 3 ? "var(--accent-border)" : "var(--border)"}`,
                   borderRadius: 12, padding: "14px 16px",
                   display: "flex", alignItems: "center", gap: 14,
                   transition: "border-color 0.2s",
                 }}
-                  onMouseEnter={e => (e.currentTarget.style.borderColor = "#1DB954")}
-                  onMouseLeave={e => (e.currentTarget.style.borderColor = s.rank <= 3 ? "rgba(29,185,84,0.2)" : "#1e1e1e")}
+                  onMouseEnter={e => (e.currentTarget.style.borderColor = "var(--accent)")}
+                  onMouseLeave={e => (e.currentTarget.style.borderColor = s.rank <= 3 ? "var(--accent-border)" : "var(--border)")}
                 >
                   <RankBadge rank={s.rank} />
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                      <p style={{ fontSize: 14, fontWeight: 700, color: "#fff", margin: 0, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                      <p style={{ fontSize: 14, fontWeight: 700, color: "var(--text)", margin: 0, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                         {s.titre}
                       </p>
                       {s.hot && (
@@ -110,12 +110,12 @@ export default function ChartsPage() {
                         </span>
                       )}
                     </div>
-                    <p style={{ fontSize: 12, color: "#555", margin: "2px 0 0" }}>
-                      {s.artiste} × {s.beatmaker} · <span style={{ color: "#333" }}>{s.genre}</span>
+                    <p style={{ fontSize: 12, color: "var(--text-3)", margin: "2px 0 0" }}>
+                      {s.artiste} × {s.beatmaker} · <span style={{ color: "var(--text-4)" }}>{s.genre}</span>
                     </p>
                   </div>
                   <div style={{ textAlign: "right", flexShrink: 0 }}>
-                    <p style={{ fontSize: 13, fontWeight: 800, color: "#fff", margin: 0 }}>
+                    <p style={{ fontSize: 13, fontWeight: 800, color: "var(--text)", margin: 0 }}>
                       {s.streams.toLocaleString("fr-FR")}
                     </p>
                     <Evolution val={s.evolution} />
@@ -127,39 +127,39 @@ export default function ChartsPage() {
 
           {/* TOP ARTISTES */}
           <div>
-            <h2 style={{ fontSize: 16, fontWeight: 800, color: "#fff", margin: "0 0 16px", display: "flex", alignItems: "center", gap: 8 }}>
+            <h2 style={{ fontSize: 16, fontWeight: 800, color: "var(--text)", margin: "0 0 16px", display: "flex", alignItems: "center", gap: 8 }}>
               🎤 Top artistes du mois
             </h2>
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
               {TOP_ARTISTES.map(a => (
                 <div key={a.rank} style={{
-                  background: "#111", border: `1px solid ${a.rank <= 3 ? "rgba(29,185,84,0.2)" : "#1e1e1e"}`,
+                  background: "var(--bg-card)", border: `1px solid ${a.rank <= 3 ? "var(--accent-border)" : "var(--border)"}`,
                   borderRadius: 12, padding: "14px 16px",
                   display: "flex", alignItems: "center", gap: 14,
                   transition: "border-color 0.2s",
                 }}
-                  onMouseEnter={e => (e.currentTarget.style.borderColor = "#1DB954")}
-                  onMouseLeave={e => (e.currentTarget.style.borderColor = a.rank <= 3 ? "rgba(29,185,84,0.2)" : "#1e1e1e")}
+                  onMouseEnter={e => (e.currentTarget.style.borderColor = "var(--accent)")}
+                  onMouseLeave={e => (e.currentTarget.style.borderColor = a.rank <= 3 ? "var(--accent-border)" : "var(--border)")}
                 >
                   <RankBadge rank={a.rank} />
                   <div style={{
                     width: 38, height: 38, borderRadius: "50%", flexShrink: 0,
-                    background: a.role === "Beatmaker" ? "rgba(100,100,255,0.15)" : "rgba(29,185,84,0.12)",
-                    border: `1px solid ${a.role === "Beatmaker" ? "#4444cc" : "#1DB954"}`,
+                    background: a.role === "Beatmaker" ? "rgba(100,100,255,0.15)" : "var(--accent-bg)",
+                    border: `1px solid ${a.role === "Beatmaker" ? "#4444cc" : "var(--accent)"}`,
                     display: "flex", alignItems: "center", justifyContent: "center",
                     fontSize: 12, fontWeight: 800,
-                    color: a.role === "Beatmaker" ? "#8888ff" : "#1DB954",
+                    color: a.role === "Beatmaker" ? "#8888ff" : "var(--accent)",
                   }}>
                     {a.avatar}
                   </div>
                   <div style={{ flex: 1 }}>
-                    <p style={{ fontSize: 14, fontWeight: 700, color: "#fff", margin: 0 }}>{a.nom}</p>
-                    <p style={{ fontSize: 12, color: "#555", margin: "2px 0 0" }}>
+                    <p style={{ fontSize: 14, fontWeight: 700, color: "var(--text)", margin: 0 }}>{a.nom}</p>
+                    <p style={{ fontSize: 12, color: "var(--text-3)", margin: "2px 0 0" }}>
                       {a.role} · {a.ville} · {a.collabs} collab{a.collabs > 1 ? "s" : ""}
                     </p>
                   </div>
                   <div style={{ textAlign: "right", flexShrink: 0 }}>
-                    <p style={{ fontSize: 13, fontWeight: 800, color: "#fff", margin: 0 }}>
+                    <p style={{ fontSize: 13, fontWeight: 800, color: "var(--text)", margin: 0 }}>
                       {a.streams.toLocaleString("fr-FR")}
                     </p>
                     <Evolution val={a.evolution} />
@@ -170,7 +170,7 @@ export default function ChartsPage() {
 
             {/* Mini stat card */}
             <div style={{
-              marginTop: 20, background: "#0d1a0d", border: "1px solid #1a3a1a",
+              marginTop: 20, background: "var(--accent-bg)", border: "1px solid var(--accent-border)",
               borderRadius: 12, padding: "16px 20px",
               display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12,
             }}>
@@ -180,8 +180,8 @@ export default function ChartsPage() {
                 { label: "Revenus générés", val: "408 €" },
               ].map(s => (
                 <div key={s.label} style={{ textAlign: "center" }}>
-                  <p style={{ fontSize: 16, fontWeight: 900, color: "#1DB954", margin: 0 }}>{s.val}</p>
-                  <p style={{ fontSize: 10, color: "#555", margin: "3px 0 0" }}>{s.label}</p>
+                  <p style={{ fontSize: 16, fontWeight: 900, color: "var(--accent)", margin: 0 }}>{s.val}</p>
+                  <p style={{ fontSize: 10, color: "var(--text-3)", margin: "3px 0 0" }}>{s.label}</p>
                 </div>
               ))}
             </div>

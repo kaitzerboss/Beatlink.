@@ -16,11 +16,6 @@ const GENRES = ["Tous", "Trap", "Drill", "RnB", "Afro", "Pop"];
 const MOODS = ["Tous", "Sombre", "Mélancolique", "Agressif", "Positif", "Motivant", "Nostalgique"];
 const LANGUES = ["Toutes", "FR", "EN"];
 
-const selectStyle: React.CSSProperties = {
-  background: "#0a0a0a", border: "1px solid #222", borderRadius: 10,
-  padding: "9px 14px", color: "#888", fontSize: 13, outline: "none", cursor: "pointer",
-};
-
 export default function Feed() {
   const [genre, setGenre] = useState("Tous");
   const [mood, setMood] = useState("Tous");
@@ -35,18 +30,23 @@ export default function Feed() {
     return true;
   });
 
+  const selectStyle: React.CSSProperties = {
+    background: "var(--bg)", border: "1px solid var(--border-2)", borderRadius: 10,
+    padding: "9px 14px", color: "var(--text-2)", fontSize: 13, outline: "none", cursor: "pointer",
+  };
+
   return (
     <section style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px 80px" }}>
       <div style={{ marginBottom: 28 }}>
-        <h2 style={{ fontSize: 22, fontWeight: 800, margin: 0, color: "#fff" }}>Acapellas disponibles</h2>
-        <p style={{ color: "#444", fontSize: 14, margin: "6px 0 0" }}>
+        <h2 style={{ fontSize: 22, fontWeight: 800, margin: 0, color: "var(--text)" }}>Acapellas disponibles</h2>
+        <p style={{ color: "var(--text-4)", fontSize: 14, margin: "6px 0 0" }}>
           Chaque acapella est accompagnée d&apos;un contrat signable en un clic.
         </p>
       </div>
 
       {/* Filtres */}
       <div style={{
-        background: "#111", border: "1px solid #1a1a1a", borderRadius: 14,
+        background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: 14,
         padding: "16px 20px", marginBottom: 24,
         display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center",
       }}>
@@ -55,10 +55,7 @@ export default function Feed() {
           placeholder="Rechercher..."
           value={search}
           onChange={e => setSearch(e.target.value)}
-          style={{
-            ...selectStyle, flex: "1 1 180px", minWidth: 160,
-            color: "#fff",
-          }}
+          style={{ ...selectStyle, flex: "1 1 180px", minWidth: 160, color: "var(--text)" }}
         />
         <select value={genre} onChange={e => setGenre(e.target.value)} style={selectStyle}>
           {GENRES.map(g => <option key={g}>{g}</option>)}
@@ -69,14 +66,14 @@ export default function Feed() {
         <select value={langue} onChange={e => setLangue(e.target.value)} style={selectStyle}>
           {LANGUES.map(l => <option key={l}>{l}</option>)}
         </select>
-        <span style={{ fontSize: 12, color: "#333", marginLeft: "auto" }}>
+        <span style={{ fontSize: 12, color: "var(--text-4)", marginLeft: "auto" }}>
           {filtered.length} acapella{filtered.length > 1 ? "s" : ""}
         </span>
       </div>
 
       {/* Grille */}
       {filtered.length === 0 ? (
-        <div style={{ textAlign: "center", padding: "60px 0", color: "#333", fontSize: 14 }}>
+        <div style={{ textAlign: "center", padding: "60px 0", color: "var(--text-4)", fontSize: 14 }}>
           Aucune acapella ne correspond à ces filtres.
         </div>
       ) : (

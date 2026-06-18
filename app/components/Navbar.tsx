@@ -25,7 +25,7 @@ export default function Navbar() {
       <nav style={{
         position: "sticky", top: 0, zIndex: 50,
         background: "var(--nav-bg)", backdropFilter: "blur(16px)",
-        borderBottom: "1px solid #1a1a1a",
+        borderBottom: "1px solid var(--border)",
       }}>
         {/* Barre principale */}
         <div style={{
@@ -78,8 +78,8 @@ export default function Navbar() {
             className="nav-mobile"
             onClick={() => setMenuOpen(!menuOpen)}
             style={{
-              background: "transparent", border: "1px solid #2a2a2a",
-              color: "#fff", borderRadius: 8, padding: "8px 12px",
+              background: "transparent", border: "1px solid var(--border-2)",
+              color: "var(--text)", borderRadius: 8, padding: "8px 12px",
               fontSize: 18, cursor: "pointer", lineHeight: 1,
             }}
           >
@@ -90,7 +90,7 @@ export default function Navbar() {
         {/* Menu mobile déroulant */}
         {menuOpen && (
           <div className="nav-mobile" style={{
-            borderTop: "1px solid #1a1a1a",
+            borderTop: "1px solid var(--border)",
             padding: "12px 20px 20px",
             display: "flex", flexDirection: "column", gap: 4,
           }}>
@@ -100,7 +100,7 @@ export default function Navbar() {
                 <a key={link.href} href={link.href} onClick={() => setMenuOpen(false)} style={{
                   textDecoration: "none", padding: "12px 16px", borderRadius: 10, fontSize: 15,
                   fontWeight: active ? 700 : 500,
-                  color: active ? "#1DB954" : "#ccc",
+                  color: active ? "#1DB954" : "var(--text-2)",
                   background: active ? "rgba(29,185,84,0.08)" : "transparent",
                 }}>
                   {link.label}
