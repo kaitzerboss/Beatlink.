@@ -38,6 +38,40 @@ function Waveform({ playing }: { playing: boolean }) {
   );
 }
 
+function SignerForm({ track, onSigne }: { track: Acapella; onSigne: () => void }) {
+  const [coche, setCoche] = useState(false);
+  return (
+    <div style={{ marginTop: 12 }}>
+      <label style={{ display: "flex", alignItems: "flex-start", gap: 10, cursor: "pointer" }}>
+        <input
+          type="checkbox"
+          checked={coche}
+          onChange={e => setCoche(e.target.checked)}
+          style={{ marginTop: 2, accentColor: "#1DB954", width: 14, height: 14, flexShrink: 0 }}
+        />
+        <span style={{ fontSize: 12, color: "#888", lineHeight: 1.5 }}>
+          J&apos;ai lu et j&apos;accepte le contrat standard beatlink. pour l&apos;acapella <strong style={{ color: "#fff" }}>{track.title}</strong> — valeur juridique d&apos;une signature manuscrite (art. 1125 Code civil)
+        </span>
+      </label>
+      <button
+        onClick={onSigne}
+        disabled={!coche}
+        style={{
+          background: coche ? "#1DB954" : "#1a1a1a",
+          color: coche ? "#000" : "#444",
+          border: "none", borderRadius: 10,
+          padding: "9px 20px", fontSize: 12, fontWeight: 800,
+          cursor: coche ? "pointer" : "not-allowed",
+          width: "100%", marginTop: 10,
+          transition: "all 0.2s",
+        }}
+      >
+        Signer et télécharger la voix
+      </button>
+    </div>
+  );
+}
+
 export default function AcapellaCard({ track }: { track: Acapella }) {
   const [playing, setPlaying] = useState(false);
   const [hovered, setHovered] = useState(false);
@@ -157,24 +191,37 @@ export default function AcapellaCard({ track }: { track: Acapella }) {
               <span style={{ fontSize: 12, color: "#666" }}>{c}</span>
             </div>
           ))}
+
+          <a href="/contrat" target="_blank" style={{
+            display: "inline-block", marginTop: 10, fontSize: 12, color: "#1DB954",
+            textDecoration: "underline", cursor: "pointer",
+          }}>
+            Voir le contrat complet →
+          </a>
+
           {beatCree ? (
             <div style={{ marginTop: 12, background: "#061206", border: "1px solid #1DB954", borderRadius: 10, padding: "12px 16px", textAlign: "center" }}>
               <p style={{ fontSize: 16, margin: "0 0 4px" }}>✅</p>
               <p style={{ fontSize: 12, fontWeight: 800, color: "#1DB954", margin: "0 0 4px" }}>Contrat signé — Acapella téléchargée</p>
-              <p style={{ fontSize: 11, color: "#555", margin: 0 }}>Dans la vraie app, le fichier serait dans ta bibliothèque.</p>
+              <p style={{ fontSize: 11, color: "#555", margin: 0 }}>Le fichier vocal est dans tes téléchargements.</p>
               <button onClick={() => { setBeatCree(false); setShowContrat(false); }} style={{
                 marginTop: 10, background: "transparent", color: "#555",
                 border: "1px solid #2a2a2a", borderRadius: 20, padding: "5px 14px", fontSize: 11, cursor: "pointer",
               }}>Recommencer</button>
             </div>
           ) : (
-            <button onClick={() => setBeatCree(true)} style={{
-              background: "#1DB954", color: "#000", border: "none", borderRadius: 10,
-              padding: "9px 20px", fontSize: 12, fontWeight: 800, cursor: "pointer",
-              width: "100%", marginTop: 12,
-            }}>
-              Accepter le contrat et télécharger
-            </button>
+            <SignerForm track={track} onSigne={() => {
+              setBeatCree(true);
+              const date = new Date().toLocaleDateString("fr-FR");
+              const html = `<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><title>Contrat beatlink. — ${track.title}</title><style>body{font-family:Georgia,serif;max-width:700px;margin:40px auto;padding:0 24px;color:#111;line-height:1.7}h1{font-size:22px;border-bottom:2px solid #1DB954;padding-bottom:10px}h2{font-size:15px;margin-top:28px;color:#1DB954}p,li{font-size:14px}footer{margin-top:40px;font-size:12px;color:#888;border-top:1px solid #ddd;padding-top:12px}</style></head><body><h1>Contrat de licence standard beatlink.</h1><p><strong>Acapella :</strong> ${track.title} — ${track.artist}<br><strong>Date de signature :</strong> ${date}</p><h2>Article 1 — Autorisation</h2><p>${track.artist} autorise l'utilisation de cette acapella pour créer un morceau musical.</p><h2>Article 2 — Répartition des revenus</h2><ul><li>${track.artist} : 45% des revenus nets</li><li>Beatmaker : 40% des revenus nets</li><li>beatlink. : 15% de commission</li></ul><h2>Article 3 — Crédit</h2><p>Crédit obligatoire : "[Titre] feat. ${track.artist}"</p><h2>Article 4 — Droit applicable</h2><p>Droit français — Tribunaux de Paris compétents. Signature électronique valide (art. 1125 Code civil).</p><footer>beatlink. — signé le ${date}</footer></body></html>`;
+              const blob = new Blob([html], { type: "text/html" });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement("a");
+              a.href = url;
+              a.download = `contrat-beatlink-${track.title.replace(/\s+/g, "-").toLowerCase()}.html`;
+              a.click();
+              URL.revokeObjectURL(url);
+            }} />
           )}
         </div>
       )}
