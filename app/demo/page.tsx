@@ -243,7 +243,18 @@ function AcapellaCard({ track }: { track: typeof ACAPELLAS[0] }) {
               }}>Recommencer la démo</button>
             </div>
           ) : (
-            <button onClick={() => setBeatCree(true)} style={{
+            <button onClick={() => {
+              setBeatCree(true);
+              const date = new Date().toLocaleDateString("fr-FR");
+              const html = `<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><title>Contrat beatlink. — ${track.title}</title><style>body{font-family:Georgia,serif;max-width:700px;margin:40px auto;padding:0 24px;color:#111;line-height:1.7}h1{font-size:22px;border-bottom:2px solid #1DB954;padding-bottom:10px}h2{font-size:15px;margin-top:28px;color:#1DB954}p,li{font-size:14px}footer{margin-top:40px;font-size:12px;color:#888;border-top:1px solid #ddd;padding-top:12px}</style></head><body><h1>Contrat de licence standard beatlink.</h1><p><strong>Acapella :</strong> ${track.title} — ${track.artist}<br><strong>Genre :</strong> ${track.genre} · ${track.bpm} BPM<br><strong>Date :</strong> ${date}</p><h2>Article 1 — Autorisation</h2><p>${track.artist} autorise tout beatmaker enregistré sur beatlink. à utiliser cette acapella pour créer un morceau musical original.</p><h2>Article 2 — Répartition des revenus</h2><ul><li>${track.artist} (Rappeur) : <strong>45%</strong> des revenus nets</li><li>Beatmaker : <strong>40%</strong> des revenus nets</li><li>beatlink. (commission plateforme) : <strong>15%</strong> des revenus nets</li></ul><h2>Article 3 — Crédit obligatoire</h2><p>Le morceau final doit être crédité : <em>"[Titre] feat. ${track.artist}"</em></p><h2>Article 4 — Distribution</h2><p>Le morceau sera distribué automatiquement via beatlink. sur Spotify, Deezer, Apple Music, TikTok et toutes plateformes partenaires.</p><h2>Article 5 — Versements</h2><p>Les revenus sont versés mensuellement via le tableau de bord beatlink. Les seuils minimaux et délais sont précisés dans les CGU beatlink.</p><h2>Article 6 — Droit applicable</h2><p>Le présent contrat est soumis au droit français. En cas de litige, les tribunaux de Paris sont seuls compétents.</p><h2>Article 7 — Signature électronique</h2><p>L'acceptation en ligne vaut signature au sens de l'article 1125 du Code civil. Le contrat est archivé automatiquement par beatlink.</p><footer>beatlink. — contrat généré le ${date} · Version démo · nassimlkh@gmail.com</footer></body></html>`;
+              const blob = new Blob([html], { type: "text/html" });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement("a");
+              a.href = url;
+              a.download = `contrat-beatlink-${track.title.replace(/\s+/g, "-").toLowerCase()}.html`;
+              a.click();
+              URL.revokeObjectURL(url);
+            }} style={{
               background: "#1DB954", color: "#000", border: "none", borderRadius: 10,
               padding: "9px 20px", fontSize: 12, fontWeight: 800, cursor: "pointer",
               width: "100%", marginTop: 12,

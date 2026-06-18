@@ -120,7 +120,7 @@ export default function Home() {
       </section>
 
       {/* FEED */}
-      <Feed />
+      <div id="feed"><Feed /></div>
 
       {/* CTA BAS DE PAGE */}
       <section style={{
