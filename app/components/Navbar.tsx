@@ -4,6 +4,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 import AuthModal from "./AuthModal";
+import { useTheme } from "../context/ThemeContext";
 
 const LINKS = [
   { label: "Découvrir", href: "/#feed" },
@@ -17,12 +18,13 @@ export default function Navbar() {
   const [modal, setModal] = useState<null | "login" | "signup">(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { theme, toggle } = useTheme();
 
   return (
     <>
       <nav style={{
         position: "sticky", top: 0, zIndex: 50,
-        background: "rgba(10,10,10,0.95)", backdropFilter: "blur(16px)",
+        background: "var(--nav-bg)", backdropFilter: "blur(16px)",
         borderBottom: "1px solid #1a1a1a",
       }}>
         {/* Barre principale */}
@@ -53,15 +55,20 @@ export default function Navbar() {
           </div>
 
           {/* Boutons auth desktop */}
-          <div className="nav-desktop" style={{ display: "flex", gap: 8, flexShrink: 0 }}>
+          <div className="nav-desktop" style={{ display: "flex", gap: 8, flexShrink: 0, alignItems: "center" }}>
+            <button onClick={toggle} title="Changer de thème" style={{
+              background: "transparent", border: "1px solid var(--border-2)",
+              color: "var(--text)", borderRadius: 24, padding: "7px 12px",
+              fontSize: 15, cursor: "pointer", lineHeight: 1,
+            }}>{theme === "dark" ? "☀️" : "🌙"}</button>
             <button onClick={() => setModal("login")} style={{
-              background: "transparent", border: "1px solid #2a2a2a",
-              color: "#fff", borderRadius: 24, padding: "8px 18px",
+              background: "transparent", border: "1px solid var(--border-2)",
+              color: "var(--text)", borderRadius: 24, padding: "8px 18px",
               fontSize: 13, fontWeight: 500, cursor: "pointer",
             }}>Connexion</button>
             <button onClick={() => setModal("signup")} style={{
-              background: "#1DB954", border: "none",
-              color: "#000", borderRadius: 24, padding: "8px 18px",
+              background: "var(--accent)", border: "none",
+              color: "#fff", borderRadius: 24, padding: "8px 18px",
               fontSize: 13, fontWeight: 700, cursor: "pointer",
             }}>Rejoindre</button>
           </div>
@@ -101,14 +108,19 @@ export default function Navbar() {
               );
             })}
             <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
+              <button onClick={toggle} style={{
+                background: "transparent", border: "1px solid var(--border-2)",
+                color: "var(--text)", borderRadius: 24, padding: "10px 14px",
+                fontSize: 15, cursor: "pointer",
+              }}>{theme === "dark" ? "☀️" : "🌙"}</button>
               <button onClick={() => { setModal("login"); setMenuOpen(false); }} style={{
-                flex: 1, background: "transparent", border: "1px solid #2a2a2a",
-                color: "#fff", borderRadius: 24, padding: "10px",
+                flex: 1, background: "transparent", border: "1px solid var(--border-2)",
+                color: "var(--text)", borderRadius: 24, padding: "10px",
                 fontSize: 14, fontWeight: 500, cursor: "pointer",
               }}>Connexion</button>
               <button onClick={() => { setModal("signup"); setMenuOpen(false); }} style={{
-                flex: 1, background: "#1DB954", border: "none",
-                color: "#000", borderRadius: 24, padding: "10px",
+                flex: 1, background: "var(--accent)", border: "none",
+                color: "#fff", borderRadius: 24, padding: "10px",
                 fontSize: 14, fontWeight: 700, cursor: "pointer",
               }}>Rejoindre</button>
             </div>
