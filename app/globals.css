@@ -10,6 +10,7 @@
   --text-2: #888888;
   --text-3: #555555;
   --text-4: #444444;
+  --logo-text: #ffffff;
   --accent: #1DB954;
   --accent-bg: rgba(29,185,84,0.08);
   --accent-border: rgba(29,185,84,0.2);
@@ -26,6 +27,7 @@
   --text-2: #555555;
   --text-3: #777777;
   --text-4: #999999;
+  --logo-text: #000000;
   --accent: #1a6b35;
   --accent-bg: rgba(26,107,53,0.08);
   --accent-border: rgba(26,107,53,0.25);
