@@ -48,15 +48,6 @@ export default function ContratPage() {
           >
             Imprimer / Sauvegarder en PDF
           </button>
-          <a href="/upload" style={{
-            display: "inline-block",
-            background: "#1DB954", color: "#000",
-            border: "none", borderRadius: 24,
-            padding: "12px 28px", fontSize: 13, fontWeight: 800,
-            cursor: "pointer", textDecoration: "none",
-          }}>
-            Uploader une acapella →
-          </a>
         </div>
       </div>
     </div>
