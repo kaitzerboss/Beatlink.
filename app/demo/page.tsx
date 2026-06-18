@@ -268,7 +268,9 @@ function AcapellaCard({ track }: { track: typeof ACAPELLAS[0] }) {
   );
 }
 
-function ProfilCard({ artiste, type }: { artiste: typeof ARTISTE_DEMO; type: "rappeur" | "beatmaker" }) {
+type ArtisteData = { nom: string; role: string; avatar: string; ville: string; bio: string; collabs: number; streams: number; acapellas?: number; beats?: number };
+
+function ProfilCard({ artiste, type }: { artiste: ArtisteData; type: "rappeur" | "beatmaker" }) {
   return (
     <div style={{ background: "#111", border: "1px solid #1e1e1e", borderRadius: 16, padding: 24 }}>
       <div style={{ display: "flex", gap: 16, alignItems: "flex-start", marginBottom: 20 }}>
@@ -300,8 +302,8 @@ function ProfilCard({ artiste, type }: { artiste: typeof ARTISTE_DEMO; type: "ra
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8 }}>
         {(type === "rappeur"
-          ? [{ n: artiste.acapellas, l: "Acapellas" }, { n: artiste.collabs, l: "Collabs" }, { n: (artiste.streams / 1000).toFixed(1) + "k", l: "Streams" }]
-          : [{ n: (artiste as typeof BEATMAKER_DEMO).beats, l: "Beats" }, { n: artiste.collabs, l: "Collabs" }, { n: (artiste.streams / 1000).toFixed(1) + "k", l: "Streams" }]
+          ? [{ n: artiste.acapellas ?? 0, l: "Acapellas" }, { n: artiste.collabs, l: "Collabs" }, { n: (artiste.streams / 1000).toFixed(1) + "k", l: "Streams" }]
+          : [{ n: artiste.beats ?? 0, l: "Beats" }, { n: artiste.collabs, l: "Collabs" }, { n: (artiste.streams / 1000).toFixed(1) + "k", l: "Streams" }]
         ).map(s => (
           <div key={s.l} style={{ background: "#1a1a1a", borderRadius: 10, padding: "10px 12px", textAlign: "center" }}>
             <p style={{ fontSize: 18, fontWeight: 900, color: "#fff", margin: 0 }}>{s.n}</p>
@@ -433,7 +435,7 @@ export default function DemoPage() {
             </p>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 16 }}>
               <ProfilCard artiste={ARTISTE_DEMO} type="rappeur" />
-              <ProfilCard artiste={BEATMAKER_DEMO as typeof ARTISTE_DEMO} type="beatmaker" />
+              <ProfilCard artiste={BEATMAKER_DEMO as unknown as ArtisteData} type="beatmaker" />
             </div>
           </div>
         )}
