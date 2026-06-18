@@ -58,6 +58,7 @@ export default function Home() {
           }}
             onMouseEnter={e => (e.currentTarget.style.borderColor = "#1DB954")}
             onMouseLeave={e => (e.currentTarget.style.borderColor = "#2a2a2a")}
+            onClick={() => document.getElementById("feed")?.scrollIntoView({ behavior: "smooth" })}
           >
             Voir les acapellas ↓
           </button>
