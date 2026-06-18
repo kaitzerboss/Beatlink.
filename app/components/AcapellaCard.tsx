@@ -41,6 +41,8 @@ function Waveform({ playing }: { playing: boolean }) {
 export default function AcapellaCard({ track }: { track: Acapella }) {
   const [playing, setPlaying] = useState(false);
   const [hovered, setHovered] = useState(false);
+  const [showContrat, setShowContrat] = useState(false);
+  const [beatCree, setBeatCree] = useState(false);
 
   return (
     <div
@@ -118,19 +120,64 @@ export default function AcapellaCard({ track }: { track: Acapella }) {
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <span style={{ fontSize: 12, color: "#444" }}>{track.plays.toLocaleString("fr-FR")} écoutes</span>
         {track.open && (
-          <button style={{
-            background: "#1DB954", color: "#000", border: "none",
-            borderRadius: 20, padding: "7px 16px",
-            fontSize: 12, fontWeight: 700, cursor: "pointer",
-            transition: "opacity 0.2s",
-          }}
-            onMouseEnter={e => (e.currentTarget.style.opacity = "0.85")}
-            onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
-          >
-            Créer un beat →
-          </button>
+          <div style={{ display: "flex", gap: 8 }}>
+            <button onClick={() => setShowContrat(!showContrat)} style={{
+              background: "transparent", color: "#888", border: "1px solid #2a2a2a",
+              borderRadius: 20, padding: "6px 14px", fontSize: 12, cursor: "pointer",
+            }}>
+              Voir le contrat
+            </button>
+            <button onClick={() => setShowContrat(true)} style={{
+              background: "#1DB954", color: "#000", border: "none",
+              borderRadius: 20, padding: "7px 16px",
+              fontSize: 12, fontWeight: 700, cursor: "pointer",
+              transition: "opacity 0.2s",
+            }}
+              onMouseEnter={e => (e.currentTarget.style.opacity = "0.85")}
+              onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
+            >
+              Créer un beat →
+            </button>
+          </div>
         )}
       </div>
+
+      {showContrat && (
+        <div style={{ background: "#0d1a0d", border: "1px solid #1a3a1a", borderRadius: 10, padding: "14px 16px" }}>
+          <p style={{ fontSize: 12, color: "#1DB954", fontWeight: 700, margin: "0 0 8px" }}>Aperçu du contrat</p>
+          {[
+            `${track.artist} reçoit 45% des revenus nets`,
+            "Le beatmaker reçoit 40% des revenus nets",
+            "beatlink. perçoit 15% de commission",
+            `Crédit obligatoire : "[Titre] feat. ${track.artist}"`,
+            "Distribution via beatlink. sur toutes les plateformes",
+          ].map((c, i) => (
+            <div key={i} style={{ display: "flex", gap: 8, alignItems: "flex-start", marginTop: 4 }}>
+              <span style={{ color: "#1DB954", fontSize: 11 }}>✓</span>
+              <span style={{ fontSize: 12, color: "#666" }}>{c}</span>
+            </div>
+          ))}
+          {beatCree ? (
+            <div style={{ marginTop: 12, background: "#061206", border: "1px solid #1DB954", borderRadius: 10, padding: "12px 16px", textAlign: "center" }}>
+              <p style={{ fontSize: 16, margin: "0 0 4px" }}>✅</p>
+              <p style={{ fontSize: 12, fontWeight: 800, color: "#1DB954", margin: "0 0 4px" }}>Contrat signé — Acapella téléchargée</p>
+              <p style={{ fontSize: 11, color: "#555", margin: 0 }}>Dans la vraie app, le fichier serait dans ta bibliothèque.</p>
+              <button onClick={() => { setBeatCree(false); setShowContrat(false); }} style={{
+                marginTop: 10, background: "transparent", color: "#555",
+                border: "1px solid #2a2a2a", borderRadius: 20, padding: "5px 14px", fontSize: 11, cursor: "pointer",
+              }}>Recommencer</button>
+            </div>
+          ) : (
+            <button onClick={() => setBeatCree(true)} style={{
+              background: "#1DB954", color: "#000", border: "none", borderRadius: 10,
+              padding: "9px 20px", fontSize: 12, fontWeight: 800, cursor: "pointer",
+              width: "100%", marginTop: 12,
+            }}>
+              Accepter le contrat et télécharger
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 }
